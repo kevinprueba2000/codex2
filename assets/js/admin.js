@@ -293,7 +293,7 @@ function handleFileUpload(source, preview, folder = 'products') {
     preview.appendChild(progressBar);
     
     // Upload files
-    fetch('admin/upload_handler.php', {
+    fetch('../admin/upload_handler.php', {
         method: 'POST',
         body: formData
     })

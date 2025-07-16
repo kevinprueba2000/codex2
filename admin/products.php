@@ -548,7 +548,7 @@ $editProductId = isset($_GET['edit']) ? intval($_GET['edit']) : 0;
             preview.appendChild(progressBar);
             
             // Subir archivos
-            fetch('admin/upload_handler.php', {
+            fetch('../admin/upload_handler.php', {
                 method: 'POST',
                 body: formData
             })
