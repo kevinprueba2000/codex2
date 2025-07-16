@@ -23,7 +23,6 @@ if (!isset($_POST['csrf_token']) || !verifyCSRFToken($_POST['csrf_token'])) {
 // Configuración de carga
 $folder = preg_replace('/[^a-zA-Z0-9_-]/', '', $_POST['folder'] ?? 'products');
 $uploadDir = __DIR__ . '/../assets/images/' . $folder . '/';
-$baseUrl = rtrim(SITE_URL, '/') . '/';
 $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 $maxFileSize = 5 * 1024 * 1024; // 5MB
 $maxFiles = 5;
@@ -193,18 +192,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['images'])) {
                 $resizeResult = resizeImage($filePath, $resizedPath, 300, 300);
                 if ($resizeResult) {
                     $uploadedFiles[] = [
-                        'original' => $baseUrl . 'assets/images/' . $folder . '/' . $fileName,
-                        'thumbnail' => $baseUrl . 'assets/images/' . $folder . '/thumb_' . $fileName,
-                        'name' => $originalName
+                        'original'  => 'assets/images/' . $folder . '/' . $fileName,
+                        'thumbnail' => 'assets/images/' . $folder . '/thumb_' . $fileName,
+                        'name'      => $originalName
                     ];
                 } else {
                     $msg = "No se pudo redimensionar la imagen '$originalName'. Puede que la extensión GD no esté habilitada.";
                     log_upload_error($msg);
                     // Si no se puede redimensionar, usar la original
                     $uploadedFiles[] = [
-                        'original' => $baseUrl . 'assets/images/' . $folder . '/' . $fileName,
-                        'thumbnail' => $baseUrl . 'assets/images/' . $folder . '/' . $fileName,
-                        'name' => $originalName
+                        'original'  => 'assets/images/' . $folder . '/' . $fileName,
+                        'thumbnail' => 'assets/images/' . $folder . '/' . $fileName,
+                        'name'      => $originalName
                     ];
                 }
             } else {
