@@ -379,7 +379,13 @@ function updateImagesJson() {
     const previews = document.querySelectorAll('.image-preview');
     previews.forEach(preview => {
         const images = Array.from(preview.querySelectorAll('img')).map(img => img.dataset.original || img.src.replace(/^[.]{2}\//, ''));
-        const hiddenInput = preview.parentElement.querySelector('[id$="ImagesJson"], [id$="image_json"], [id$="images_json"]');
+        let hiddenInput = preview.parentElement.querySelector('[id$="ImagesJson"], [id$="image_json"], [id$="images_json"]');
+        if (!hiddenInput) {
+            const container = preview.closest('.mb-3, form');
+            if (container) {
+                hiddenInput = container.querySelector('[id$="ImagesJson"], [id$="image_json"], [id$="images_json"]');
+            }
+        }
         if (hiddenInput) {
             hiddenInput.value = JSON.stringify(images);
             // Para configuraciones (logo y favicon)
