@@ -306,7 +306,11 @@ class Product {
         if ($imagesJson) {
             $images = json_decode($imagesJson, true);
             if (json_last_error() === JSON_ERROR_NONE && !empty($images[0])) {
-                return $images[0];
+                $firstImage = $images[0];
+                $localPath = __DIR__ . '/../' . ltrim($firstImage, '/');
+                if (strpos($firstImage, 'http') === 0 || (file_exists($localPath) && filesize($localPath) > 10)) {
+                    return $firstImage;
+                }
             }
         }
 
@@ -315,7 +319,8 @@ class Product {
             $extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
             foreach ($extensions as $ext) {
                 $path = "assets/images/products/{$slug}.{$ext}";
-                if (file_exists(__DIR__ . '/../' . $path)) {
+                $fullPath = __DIR__ . '/../' . $path;
+                if (file_exists($fullPath) && filesize($fullPath) > 10) {
                     return $path;
                 }
             }
