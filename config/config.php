@@ -3,7 +3,18 @@
 session_start();
 
 // Configuración general
-define('SITE_URL', 'http://localhost/TiendawebAlquimia');
+// Intentar detectar automáticamente la URL de la aplicación para evitar
+// problemas cuando el proyecto no se aloja exactamente en "TiendawebAlquimia".
+// Si necesitas forzar una URL distinta, define SITE_URL antes de incluir
+// este archivo.
+if (!defined('SITE_URL')) {
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $docRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT'] ?? '');
+    $rootDir = str_replace('\\', '/', dirname(__DIR__));
+    $basePath = rtrim(str_replace($docRoot, '', $rootDir), '/');
+    define('SITE_URL', $protocol . $host . ($basePath ? '/' . ltrim($basePath, '/') : ''));
+}
 define('SITE_NAME', 'AlquimiaTechnologic');
 define('ADMIN_EMAIL', 'admin@alquimiatechnologic.com');
 
