@@ -562,7 +562,7 @@ $settings = [
             progressBar.innerHTML = '<div class="upload-progress-bar" style="width: 0%"></div>';
             preview.appendChild(progressBar);
             
-            fetch('admin/upload_handler_simple.php', {
+            fetch('../admin/upload_handler_simple.php', {
                 method: 'POST',
                 body: formData
             })
@@ -620,7 +620,7 @@ $settings = [
             progressBar.innerHTML = '<div class="upload-progress-bar" style="width: 0%"></div>';
             preview.appendChild(progressBar);
             
-            fetch('admin/upload_handler_simple.php', {
+            fetch('../admin/upload_handler_simple.php', {
                 method: 'POST',
                 body: formData
             })
